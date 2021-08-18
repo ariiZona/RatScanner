@@ -63,6 +63,10 @@ namespace RatScanner.View
 			RatConfig.MinimalUi.ShowUpdated = settingsVM.ShowUpdated;
 			RatConfig.MinimalUi.Opacity = settingsVM.Opacity;
 
+			//Hide window after some time (useful on single monitor)
+			RatConfig.MinimalUi.HideAfterSomeTime = settingsVM.HideAfterSomeTime;
+			RatConfig.MinimalUi.HidingTime = settingsVM.HidingTime;
+
 			RatConfig.Tracking.ShowNonFIRNeeds = settingsVM.ShowNonFIRNeeds;
 
 			RatConfig.Tracking.TarkovTracker.Token = settingsVM.TarkovTrackerToken.Trim();

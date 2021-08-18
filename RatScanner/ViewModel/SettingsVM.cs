@@ -25,6 +25,10 @@ namespace RatScanner.ViewModel
 		public bool ShowQuestHideoutTeamTracker { get; set; }
 		public int Opacity { get; set; }
 
+		//Hide window if not used (useful for single monitor)
+		public bool HideAfterSomeTime { get; set; }
+		public int HidingTime { get; set; }
+
 		public int ScreenWidth { get; set; }
 		public int ScreenHeight { get; set; }
 		public bool MinimizeToTray { get; set; }
@@ -61,6 +65,9 @@ namespace RatScanner.ViewModel
 			ShowQuestHideoutTeamTracker = RatConfig.MinimalUi.ShowQuestHideoutTeamTracker;
 			ShowUpdated = RatConfig.MinimalUi.ShowUpdated;
 			Opacity = RatConfig.MinimalUi.Opacity;
+			
+			HideAfterSomeTime = RatConfig.MinimalUi.HideAfterSomeTime;
+			HidingTime = RatConfig.MinimalUi.HidingTime;
 
 			ScreenWidth = RatConfig.ScreenWidth;
 			ScreenHeight = RatConfig.ScreenHeight;

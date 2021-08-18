@@ -78,6 +78,8 @@ namespace RatScanner
 			internal static bool ShowQuestHideoutTracker = true;
 			internal static bool ShowQuestHideoutTeamTracker = false;
 			internal static int Opacity = 10;
+			internal static bool HideAfterSomeTime = true;
+			internal static int HidingTime = 6 * 1000;
 		}
 
 		// Progress Tracking options
@@ -220,6 +222,9 @@ namespace RatScanner
 			config.WriteBool(nameof(MinimalUi.ShowQuestHideoutTracker), MinimalUi.ShowQuestHideoutTracker);
 			config.WriteBool(nameof(MinimalUi.ShowQuestHideoutTeamTracker), MinimalUi.ShowQuestHideoutTeamTracker);
 			config.WriteInt(nameof(MinimalUi.Opacity), MinimalUi.Opacity);
+
+			config.WriteBool(nameof(MinimalUi.HideAfterSomeTime), MinimalUi.HideAfterSomeTime);
+			config.WriteInt(nameof(MinimalUi.HidingTime), MinimalUi.HidingTime);
 
 			config.Section = nameof(Tracking);
 			config.WriteBool(nameof(Tracking.ShowNonFIRNeeds), Tracking.ShowNonFIRNeeds);

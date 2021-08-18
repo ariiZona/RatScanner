@@ -29,7 +29,8 @@ namespace RatScanner
 
 		private Timer _marketDBRefreshTimer;
 		private Timer _tarkovTrackerDBRefreshTimer;
-
+		
+		private Timer _windowHidingTimer;
 
 		/// <summary>
 		/// Lock for name scanning
@@ -126,6 +127,8 @@ namespace RatScanner
 			Logger.LogInfo("Setting up data update routines...");
 			_marketDBRefreshTimer = new Timer(RefreshMarketDB, null, RatConfig.MarketDBRefreshTime, Timeout.Infinite);
 			_tarkovTrackerDBRefreshTimer = new Timer(RefreshTarkovTrackerDB, null, RatConfig.Tracking.TarkovTracker.RefreshTime, Timeout.Infinite);
+
+			_windowHidingTimer = new Timer(WindowTimer, null, Timeout.Infinite, Timeout.Infinite);
 
 			Logger.LogInfo("Ready!");
 		}
@@ -280,6 +283,8 @@ namespace RatScanner
 		// Returns the ruff screenshot
 		private Bitmap GetScreenshot(Vector2 vector2, Size size)
 		{
+			RatConfig.AlwaysOnTop = true;
+			_windowHidingTimer.Change(RatConfig.MinimalUi.HidingTime, Timeout.Infinite);
 			var bmp = new Bitmap(size.Width, size.Height, PixelFormat.Format24bppRgb);
 
 			try
@@ -317,6 +322,12 @@ namespace RatScanner
 			Logger.LogInfo("Refreshing TarkovTracker DB...");
 			TarkovTrackerDB.Init();
 			_tarkovTrackerDBRefreshTimer.Change(RatConfig.Tracking.TarkovTracker.RefreshTime, Timeout.Infinite);
+		}
+
+		private void WindowTimer(object? o)
+		{
+			RatConfig.AlwaysOnTop = false;
+			Logger.LogInfo("Hiding Window");
 		}
 
 		protected virtual void OnPropertyChanged(string propertyName = null)

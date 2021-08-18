@@ -283,8 +283,6 @@ namespace RatScanner
 		// Returns the ruff screenshot
 		private Bitmap GetScreenshot(Vector2 vector2, Size size)
 		{
-			RatConfig.AlwaysOnTop = true;
-			_windowHidingTimer.Change(RatConfig.MinimalUi.HidingTime, Timeout.Infinite);
 			var bmp = new Bitmap(size.Width, size.Height, PixelFormat.Format24bppRgb);
 
 			try
@@ -303,6 +301,7 @@ namespace RatScanner
 		// Display the item information in a ToolTip
 		private void ShowToolTip(ItemScan itemScan)
 		{
+			_windowHidingTimer.Change(RatConfig.MinimalUi.HidingTime, Timeout.Infinite);
 			var pos = itemScan.GetToolTipPosition();
 			if (pos == null) return;
 
@@ -326,8 +325,12 @@ namespace RatScanner
 
 		private void WindowTimer(object? o)
 		{
-			RatConfig.AlwaysOnTop = false;
-			Logger.LogInfo("Hiding Window");
+			if (RatConfig.MinimalUi.HideAfterSomeTime)
+			{
+				PageSwitcher.Instance.WindowState = WindowState.Minimized;
+				Logger.LogInfo("Hiding Window");
+			}
+			
 		}
 
 		protected virtual void OnPropertyChanged(string propertyName = null)
